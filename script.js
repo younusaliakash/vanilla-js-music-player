@@ -7,31 +7,33 @@ const audio = document.getElementById('audio');
 const progress = document.getElementById('progress');
 const progressContainer = document.getElementById('progress-container');
 const title = document.getElementById('title');
-const cover = document.getElementById('cover');
+const cover = document.getElementById('music-cover');
 
-// Song titles
-const songs = ['hey', 'summer', 'ukulele'];
+// title
+const songs = ['hey', 'summer', 'ukulele']
 
-// Keep track of song
+//keep track of songs
 let songIndex = 2;
 
-// Initially load song details into DOM
-loadSong(songs[songIndex]);
+// // Initially load song details into DOM
+loadSongs(songs[songIndex])
 
-// Update song details
-function loadSong(song) {
-  title.innerText = song;
-  audio.src = `music/${song}.mp3`;
-  cover.src = `images/${song}.jpg`;
+//Update song details
+function loadSongs(song) {
+  title.innerText = song
+  audio.src = `music/${song}.mp3`
+  cover.src = `images/${song}.jpg`
 }
 
-// Play song
-function playSong() {
-  musicContainer.classList.add('play');
-  playBtn.querySelector('i.fas').classList.remove('fa-play');
-  playBtn.querySelector('i.fas').classList.add('fa-pause');
+// play song
 
-  audio.play();
+function playSong() {
+  musicContainer.classList.add('play')
+  playBtn.querySelector('i.fas').classList.remove('fa-play')
+  playBtn.querySelector('i.fas').classList.add('fa-pause')
+
+  audio.play()
+
 }
 
 // Pause song
@@ -51,7 +53,7 @@ function prevSong() {
     songIndex = songs.length - 1;
   }
 
-  loadSong(songs[songIndex]);
+  loadSongs(songs[songIndex]);
 
   playSong();
 }
@@ -64,41 +66,53 @@ function nextSong() {
     songIndex = 0;
   }
 
-  loadSong(songs[songIndex]);
+  loadSongs(songs[songIndex]);
 
   playSong();
 }
 
-// Update progress bar
-function updateProgress(e) {
+
+// // Update progress bar
+
+function updateProgress (e) {
   const { duration, currentTime } = e.srcElement;
+
   const progressPercent = (currentTime / duration) * 100;
-  progress.style.width = `${progressPercent}%`;
+
+  progress.style.width = `${progressPercent}%`
 }
 
-// Set progress bar
-function setProgress(e) {
-  const width = this.clientWidth;
+// // Set progress bar
+
+function setProgress (e) {
+  //total width
+  const  width = this.clientWidth;
+
+  //get current width
   const clickX = e.offsetX;
+
+  //duration
   const duration = audio.duration;
 
-  audio.currentTime = (clickX / width) * duration;
+  audio.currentTime = ( clickX / width ) *  duration;
 }
 
-// Event listeners
+//Event listeners
 playBtn.addEventListener('click', () => {
-  const isPlaying = musicContainer.classList.contains('play');
+  const isPlaying = musicContainer.classList.contains('play')
 
   if (isPlaying) {
-    pauseSong();
+    pauseSong()
   } else {
-    playSong();
+    playSong()
   }
-});
+})
 
-// Change song
+// // Change song
 prevBtn.addEventListener('click', prevSong);
 nextBtn.addEventListener('click', nextSong);
+
+
 
 // Time/song update
 audio.addEventListener('timeupdate', updateProgress);
